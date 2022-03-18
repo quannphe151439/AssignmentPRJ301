@@ -74,6 +74,17 @@ public class Authentication_StaffController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.getSession().invalidate();
+        Cookie c_userd = new Cookie("username", "");
+        Cookie c_passd = new Cookie("password", "");
+        Cookie c_bida = new Cookie("bid", "");
+        c_userd.setMaxAge(0);
+        c_passd.setMaxAge(0);
+        c_bida.setMaxAge(0);
+        response.addCookie(c_userd);
+        response.addCookie(c_passd);
+        response.addCookie(c_bida);
+        
         String username = request.getParameter("username");
         String password = request.getParameter("pass");
         String bid = request.getParameter("bid").trim();
@@ -89,6 +100,7 @@ public class Authentication_StaffController extends HttpServlet {
                 Cookie c_bid = new Cookie("bid", bid);
                 c_user.setMaxAge(24 * 3600 * 7);
                 c_pass.setMaxAge(24 * 3600 * 7);
+                c_bid.setMaxAge(24 * 3600 * 7);
                 response.addCookie(c_user);
                 response.addCookie(c_pass);
                 response.addCookie(c_bid);

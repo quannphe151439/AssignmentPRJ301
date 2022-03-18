@@ -29,6 +29,9 @@ public class Import {
         this.time = time;
     }
     
+    public Import(){
+        
+    }
     
 
     public Import(int iid,Account bid, String iname, String iphone, String iaddress, String iconfirm, int itotal, int idebt, int payment) {

@@ -28,7 +28,7 @@
 
         <span><a href="manage"><img alt="" src="img/d.png"></a></span>
     </header>
-    <form action="import" method="POST">
+    <form id="noww" action="import" method="POST">
         <article>
 
             <address>
@@ -95,7 +95,7 @@
         </article>
         <aside>
             <span id = "message" style="color:red">${requestScope.mess} </span>
-            <h1><span><input class="submit" type="submit" value="Nhập vào kho"></span></h1>
+            <h1><span><input class="submit" onclick="checkvalue()" type="button" value="Nhập vào kho"></span></h1>
             <div>
                 <p></p>
             </div>

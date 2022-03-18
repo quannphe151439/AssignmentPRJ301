@@ -61,6 +61,16 @@ public class AuthenticationController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //logout khi login vào acc khác
+        request.getSession().invalidate();
+        Cookie c_userd = new Cookie("username", "");
+        Cookie c_passd = new Cookie("password", ""); 
+        c_userd.setMaxAge(0);
+        c_passd.setMaxAge(0);  
+        response.addCookie(c_userd);
+        response.addCookie(c_passd);
+
+
         String username_signup = request.getParameter("username");
         String password_signup = request.getParameter("pass");
         String conpass_signup = request.getParameter("conpass");
@@ -101,7 +111,7 @@ public class AuthenticationController extends HttpServlet {
                 request.getRequestDispatcher("/view/login.jsp").forward(request, response);
             } else {
 
-                AccountDBContext db = new AccountDBContext();              
+                AccountDBContext db = new AccountDBContext();
                 String raw_bid = rand_bid(7);
                 while (db.checkBid(raw_bid)) { //sinh ra code bid ngẫu nhiên, trùng thì tạo mới lại
                     raw_bid = rand_bid(7);

@@ -3,6 +3,7 @@
     Created on : 06-03-2022, 14:22:44
     Author     : Quan
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -130,7 +131,9 @@
                                 <h1 class="display-5 fw-bolder text-white mb-2">Digital solutions in the 4.0 technology era</h1>
                                 <p class="lead fw-normal text-white-50 mb-4">Business Modern, mô hình kinh doanh thời đại mới!</p>
                                 <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
-                                    <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#myModal" data-toggle="modal">Bắt đầu ngay</a>
+                                    <a class="btn btn-primary btn-lg px-4 me-sm-3" 
+                                       href="#myModal" 
+                                       data-toggle="modal">Bắt đầu ngay</a>
                                     <a class="btn btn-outline-light btn-lg px-4" href="#features">Tìm hiểu thêm</a>
                                 </div>
    
@@ -217,13 +220,24 @@
             <div class="modal-dialog modal-login">
                 <div class="modal-content">
                     <div class="modal-header">
-<!--                       			-->
+
                         <h4 class="modal-title">Bạn là:</h4>	
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
                     <div class="modal-body" style="text-align: center">
+                        <c:if test="${sessionScope.account==null}">
                         <a class="btn btn-primary btn-lg px-4 me-sm-3" href="login">Chủ kinh doanh</a>
+                        </c:if>
+                        <c:if test="${sessionScope.account!=null}">
+                        <a class="btn btn-primary btn-lg px-4 me-sm-3" href="manage">Chủ kinh doanh</a>
+                        </c:if>
+                        <c:if test="${sessionScope.accountStaff==null}">
                         <a class="btn btn-primary btn-lg px-4 me-sm-3" style="margin-top: 20px; " href="slogin">Nhân viên</a>
+                        </c:if>
+                        <c:if test="${sessionScope.accountStaff!=null}">
+                        <a class="btn btn-primary btn-lg px-4 me-sm-3" style="margin-top: 20px; " href="manage">Nhân viên</a>
+                        </c:if>
+                        
                     </div>
                     
                 </div>

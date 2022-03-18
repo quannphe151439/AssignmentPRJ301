@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Account;
 import model.Import;
 import model.ImportDetail;
 
@@ -108,5 +109,57 @@ public class ImportDBContext extends DBContext {
             Logger.getLogger(ImportDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return count + 1;
+    }
+    
+    public ArrayList<Import> getImports(int pageindex, int pagesize,String bid)
+    {
+        ArrayList<Import> imports = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM (SELECT *, ROW_NUMBER() OVER (ORDER BY iid ASC) as row_index FROM Import where bid=?) tb\n" +
+"                        WHERE row_index >=(?-1)* ? +1 AND row_index <= ? * ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, bid);
+            stm.setInt(2, pageindex);
+            stm.setInt(3, pagesize);
+            stm.setInt(4, pageindex);
+            stm.setInt(5, pagesize);
+            ResultSet rs = stm.executeQuery();
+            while(rs.next())
+            {
+                Import m = new Import();
+                Account acc= new Account();
+                m.setIid(rs.getInt("iid"));
+                acc.setBid(rs.getString("bid"));
+                m.setBid(acc);
+                m.setIname(rs.getString("iname"));
+                m.setIphone(rs.getString("iphone"));
+                m.setIaddress(rs.getString("iaddress"));
+                m.setIconfirm(rs.getString("iconfirm"));
+                m.setItotal(rs.getInt("itotal"));
+                m.setIdebt(rs.getInt("idebt"));
+                m.setPayment(rs.getInt("payment"));
+                imports.add(m);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ImportDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return imports;
+    }
+    
+    public int count(String bid)
+    {
+        try {
+            String sql = "SELECT count(*) as total FROM Import i inner join ImportDetail d on i.iid=d.iid where bid=?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, bid);
+            ResultSet rs = stm.executeQuery();
+            if(rs.next())
+            {
+                return rs.getInt("total");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ImportDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
     }
 }
