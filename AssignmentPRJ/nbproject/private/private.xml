@@ -4,9 +4,12 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Quan/FU/sp22-PRJ/AssignmentPRJ/src/java/controller/sell/billDetail.java</file>
-            <file>file:/C:/Users/Quan/FU/sp22-PRJ/AssignmentPRJ/web/view/billdetail.jsp</file>
-            <file>file:/C:/Users/Quan/FU/sp22-PRJ/AssignmentPRJ/src/java/controller/sell/SetDebtBill.java</file>
+            <file>file:/C:/Users/Quan/FU/sp22-PRJ/AssignmentPRJ/web/view/expense.jsp</file>
+            <file>file:/C:/Users/Quan/FU/sp22-PRJ/AssignmentPRJ/web/css/expense/templatemo-style.css</file>
+            <file>file:/C:/Users/Quan/FU/sp22-PRJ/AssignmentPRJ/web/js/expense/bootstrap.min.js</file>
+            <file>file:/C:/Users/Quan/FU/sp22-PRJ/AssignmentPRJ/web/view/admincontrol.jsp</file>
             <file>file:/C:/Users/Quan/FU/sp22-PRJ/AssignmentPRJ/src/java/dal/SellDBContext.java</file>
+            <file>file:/C:/Users/Quan/FU/sp22-PRJ/AssignmentPRJ/src/java/controller/business/ExpenseController.java</file>
         </group>
     </open-files>
 </project-private>

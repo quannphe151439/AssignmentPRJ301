@@ -86,7 +86,7 @@
 
                     <div class="row" style="margin-top: 40px;" >
                         <div class="col-12 col-sm-6 admin" style="text-align: center;">
-                            <a class=" btn btn-danger" id="button-link " href="">
+                            <a class=" btn btn-danger" id="button-link " href="expense">
                                 <span class="material-icons">paid</span>Chi tiêu cửa hàng</a>
                         </div>
                         <div class="col-12 col-sm-6 admin" style="text-align: center;">
