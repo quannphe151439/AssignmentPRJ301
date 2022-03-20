@@ -10,6 +10,7 @@ import dal.SellDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,6 +19,8 @@ import javax.servlet.http.HttpServletResponse;
 import model.Account;
 import model.AccountStaff;
 import model.Bill;
+import model.BillDebt;
+import model.BillDetail;
 
 /**
  *
@@ -89,8 +92,35 @@ public class billController extends BaseAuthenticationController {
         } else {
             bid = acc;
         }
+        Boolean status=debt>0?true:false; //lay id cua bill gan nhat, de gan cho billdetail va billdebt
         SellDBContext db = new SellDBContext();
-        Bill b = new Bill(bid, phone, name, phone, address, payment, paytype, debt, total);
+        String raw_billcode = db.getBillcode(bid.getBid().trim());  //lấy billcode gần nhất 
+        int idbill = db.getIdbill(bid.getBid().trim());  //lấy billcode gần nhất 
+        String billcode = rand_billcode(raw_billcode);  //set lại billcode để ko bị trùng
+        Bill b = new Bill(bid, billcode, name, phone, address, payment, paytype, debt, total);
+        Bill bil = new Bill();
+        bil.setId(idbill+1);
+        BillDebt billdebt= new BillDebt();
+        billdebt.setIdbill(bil);
+        billdebt.setStatus(status);
+        ArrayList<BillDetail> list = new ArrayList<>();
+        for (int i = 0; i < product.length; i++) {
+            BillDetail d = new BillDetail();
+            d.setBid(bid);
+            d.setIdbill(bil);
+            d.setBillcode(b);
+            d.setProduct(product[i]);
+            d.setDescribe(describe[i]);
+            d.setQuantity(Integer.parseInt(quantity[i]));
+            d.setUnitprice(Integer.parseInt(unitprice[i]));
+            d.setPrice(Integer.parseInt(price[i]));
+            list.add(d);
+        }
+        db.insertBill(b, list,billdebt);
+        String re = "Lưu hóa đơn thành công!";
+        request.setAttribute("mess", re);
+        request.getRequestDispatcher("/view/writebill.jsp").forward(request, response);
+
     }
 
     public static String rand_billcode(String billcode) {   //tạo code ngẫu nhiên  YYYY-XXXXXXXXX

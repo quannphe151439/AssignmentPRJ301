@@ -122,9 +122,15 @@ public abstract class BaseAuthenticationController extends HttpServlet {
             //process business
             processGet(request, response);
         } else {
-            String mess = "Phiên đăng nhập đã hết hạn, hãy đăng nhập lại!";
-            request.setAttribute("mess", mess);
-            request.getRequestDispatcher("/view/login.jsp").forward(request, response);
+            if (!isAuthenticated(request)) {
+                String mess = "Phiên đăng nhập đã hết hạn, hãy đăng nhập lại!";
+                request.setAttribute("mess", mess);
+                response.sendRedirect("login");
+            } else {
+                String mess = "Phiên đăng nhập đã hết hạn, hãy đăng nhập lại!";
+                request.setAttribute("mess", mess);
+                response.sendRedirect("slogin");
+            }
         }
     }
 
@@ -149,9 +155,15 @@ public abstract class BaseAuthenticationController extends HttpServlet {
             //process business
             processPost(request, response);
         } else {
-            String mess = "Phiên đăng nhập đã hết hạn, hãy đăng nhập lại!";
-            request.setAttribute("mess", mess);
-            request.getRequestDispatcher("/view/login.jsp").forward(request, response);
+            if (!isAuthenticated(request)) {
+                String mess = "Phiên đăng nhập đã hết hạn, hãy đăng nhập lại!";
+                request.setAttribute("mess", mess);
+                response.sendRedirect("login");
+            } else {
+                String mess = "Phiên đăng nhập đã hết hạn, hãy đăng nhập lại!";
+                request.setAttribute("mess", mess);
+                response.sendRedirect("slogin");
+            }
         }
     }
 

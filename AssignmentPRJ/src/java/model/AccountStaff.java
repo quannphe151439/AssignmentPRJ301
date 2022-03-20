@@ -13,6 +13,16 @@ public class AccountStaff {
     private String userStaff;
     private String passStaff;
     private Account bid;
+    private String displayname;
+
+    public String getDisplayname() {
+        return displayname;
+    }
+
+    public void setDisplayname(String displayname) {
+        this.displayname = displayname;
+    }
+    
 
     public String getUserStaff() {
         return userStaff;

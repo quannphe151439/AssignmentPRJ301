@@ -9,13 +9,13 @@ function pagger(id, pageindex, totalpage, gap)
     var result = '';
     //generate first
     if (pageindex - gap > 1)
-        result += '<li class="page-item"><a href="warehouse?page=1" class="page-link">1</a></li>';
+        result += '<li class="page-item"><a href="bills?page=1" class="page-link">1</a></li>';
 
     for (var i = pageindex - gap; i < pageindex; i++)
     {
         if (i >= 1)
         {
-            result += '<li class="page-item"><a href="warehouse?page=' + i + '" class="page-link">' + i + '</a></li>';
+            result += '<li class="page-item"><a href="bills?page=' + i + '" class="page-link">' + i + '</a></li>';
         }
     }
 
@@ -26,14 +26,25 @@ function pagger(id, pageindex, totalpage, gap)
     {
         if (i <= totalpage)
         {
-            result += '<li class="page-item"><a href="warehouse?page=' + i + '" class="page-link">' + i + '</a></li>';
+            result += '<li class="page-item"><a href="bills?page=' + i + '" class="page-link">' + i + '</a></li>';
         }
     }
 
     //generate last
     if (pageindex + gap < totalpage)
-        result += '<li class="page-item"><a href="warehouse?page=' + totalpage + '" class="page-link">' + totalpage + '</a></li>';
+        result += '<li class="page-item"><a href="bills?page=' + totalpage + '" class="page-link">' + totalpage + '</a></li>';
 
     container.innerHTML = result;
 }
 
+function check() {
+    var check = 1;
+    for (var a = document.querySelectorAll('input'), i = 0; a[i]; ++i) {
+        if (!a[0].value && !a[1].value) {
+            location.reload();
+        }
+    }
+    if (check == 1) {
+        document.getElementById('noww').submit();
+    }
+}

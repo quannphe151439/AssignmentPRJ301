@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,9 +18,9 @@
         <!-- Bootstrap icons-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
         <link href="css/sell/bills.css" rel="stylesheet" type="text/css"/>
-        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+        
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js"></script>
+
         <script src="js/sell/bills.js" type="text/javascript"></script>
     </head>
     <body>
@@ -34,143 +36,68 @@
                 <div class="col-lg-10 mx-auto">
                     <div class="career-search mb-60">
 
-                        <form action="#" class="career-form mb-60">
+                        <form action="bills" id="noww" method="POST" class="career-form mb-60">   <!--phần filter -->
                             <div class="row">
-                                <div class="col-md-6 col-lg-3 my-3">
+                                <div class="col-md-6 col-lg-4 my-4">
                                     <div class="input-group position-relative">
-                                        <input type="text" class="form-control" placeholder="Enter Your Keywords" id="keywords">
+                                        <input type="text" class="custom-select" name="name" placeholder="Nhập tên khách hàng" id="keywords">
                                     </div>
                                 </div>
-                                <div class="col-md-6 col-lg-3 my-3">
+                                <div class="col-md-6 col-lg-4 my-4">
                                     <div class="select-container">
-                                        <select class="custom-select">
-                                            <option selected="">Location</option>
-                                            <option value="1">Jaipur</option>
-                                            <option value="2">Pune</option>
-                                            <option value="3">Bangalore</option>
+
+                                        <select name="filter" class="custom-select">
+                                            <option value="0">Lọc theo</option>
+                                            <option value="1">Chưa thanh toán</option>
+                                            <option value="2">Trong tháng này</option>
+
                                         </select>
+
                                     </div>
                                 </div>
-                                <div class="col-md-6 col-lg-3 my-3">
-                                    <div class="select-container">
-                                        <select class="custom-select">
-                                            <option selected="">Select Job Type</option>
-                                            <option value="1">Ui designer</option>
-                                            <option value="2">JS developer</option>
-                                            <option value="3">Web developer</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-lg-3 my-3">
-                                    <button type="button" class="btn btn-lg btn-block btn-light btn-custom" id="contact-submit">
-                                        Search
+
+                                <div class="col-md-12 col-lg-4 my-4">
+                                    <button type="submit"   class="btn btn-lg btn-block btn-light btn-custom" >
+                                        Tìm kiếm
                                     </button>
                                 </div>
                             </div>
                         </form>
-
+                        <!--phần content  -->
                         <div class="filter-result">
-                            <p class="mb-30 ff-montserrat">Total Job Openings : 89</p>
+                            <p class="mb-30 ff-montserrat">Tổng hóa đơn : ${requestScope.totalrecords}</p>
 
-                            <div class="job-box d-md-flex align-items-center justify-content-between mb-30">
-                                <div class="job-left my-4 d-md-flex align-items-center flex-wrap">
-                                    <div class="img-holder mr-md-4 mb-md-0 mb-4 mx-auto mx-md-0 d-md-none d-lg-flex">
-                                        FD
+                            <!--phần element  -->
+                            <c:forEach items="${requestScope.bills}" var="b">
+                                <div class="job-box d-md-flex align-items-center justify-content-between mb-30">
+                                    <div class="job-left my-4 d-md-flex align-items-center flex-wrap">
+                                        <div class="img-holder mr-md-4 mb-md-0 mb-4 mx-auto mx-md-0 d-md-none d-lg-flex">
+                                            ${fn:substring(b.name,0,1)}
+                                        </div>
+                                        <div class="job-content">
+                                            <h5 class="text-center text-md-left">${b.name}</h5>
+                                            <ul class="d-md-flex flex-wrap text-capitalize ff-open-sans">
+                                                <li class="mr-md-4">
+                                                    <i class="zmdi zmdi-pin mr-2"></i> ${b.address}
+                                                </li>
+                                                <li class="mr-md-4">
+                                                    <i class="zmdi zmdi-money mr-2"></i> ${b.total}
+                                                </li>
+                                                <li class="mr-md-4">
+                                                    <i class="zmdi zmdi-time mr-2"></i> ${b.time}
+                                                </li>
+                                                <li class="mr-md-4">
+                                                    <i class="zmdi zmdi-file mr-2"></i> ${b.billcode}
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                    <div class="job-content">
-                                        <h5 class="text-center text-md-left">Front End Developer</h5>
-                                        <ul class="d-md-flex flex-wrap text-capitalize ff-open-sans">
-                                            <li class="mr-md-4">
-                                                <i class="zmdi zmdi-pin mr-2"></i> Los Angeles
-                                            </li>
-                                            <li class="mr-md-4">
-                                                <i class="zmdi zmdi-money mr-2"></i> 2500-3500/pm
-                                            </li>
-                                            <li class="mr-md-4">
-                                                <i class="zmdi zmdi-time mr-2"></i> Full Time
-                                            </li>
-                                        </ul>
+                                    <div class="job-right my-4 flex-shrink-0">
+                                        <a href="billdetail?billcode=${b.billcode}" class="btn d-block w-100 d-sm-inline-block btn-light">Xem và chỉnh sửa</a>
                                     </div>
                                 </div>
-                                <div class="job-right my-4 flex-shrink-0">
-                                    <a href="#" class="btn d-block w-100 d-sm-inline-block btn-light">Apply now</a>
-                                </div>
-                            </div>
+                            </c:forEach>
 
-                            <div class="job-box d-md-flex align-items-center justify-content-between mb-30">
-                                <div class="job-left my-4 d-md-flex align-items-center flex-wrap">
-                                    <div class="img-holder mr-md-4 mb-md-0 mb-4 mx-auto mx-md-0 d-md-none d-lg-flex">
-                                        UX
-                                    </div>
-                                    <div class="job-content">
-                                        <h5 class="text-center text-md-left">Ui/Ux Developer</h5>
-                                        <ul class="d-md-flex flex-wrap text-capitalize ff-open-sans">
-                                            <li class="mr-md-4">
-                                                <i class="zmdi zmdi-pin mr-2"></i> Los Angeles
-                                            </li>
-                                            <li class="mr-md-4">
-                                                <i class="zmdi zmdi-money mr-2"></i> 2500-3500/pm
-                                            </li>
-                                            <li class="mr-md-4">
-                                                <i class="zmdi zmdi-time mr-2"></i> Full Time
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="job-right my-4 flex-shrink-0">
-                                    <a href="#" class="btn d-block w-100 d-sm-inline-block btn-light">Apply now</a>
-                                </div>
-                            </div>
-
-                            <div class="job-box d-md-flex align-items-center justify-content-between mb-30">
-                                <div class="job-left my-4 d-md-flex align-items-center flex-wrap">
-                                    <div class="img-holder mr-md-4 mb-md-0 mb-4 mx-auto mx-md-0 d-md-none d-lg-flex">
-                                        GD
-                                    </div>
-                                    <div class="job-content">
-                                        <h5 class="text-center text-md-left">Graphic Designer</h5>
-                                        <ul class="d-md-flex flex-wrap text-capitalize ff-open-sans">
-                                            <li class="mr-md-4">
-                                                <i class="zmdi zmdi-pin mr-2"></i> Los Angeles
-                                            </li>
-                                            <li class="mr-md-4">
-                                                <i class="zmdi zmdi-money mr-2"></i> 2500-3500/pm
-                                            </li>
-                                            <li class="mr-md-4">
-                                                <i class="zmdi zmdi-time mr-2"></i> Full Time
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="job-right my-4 flex-shrink-0">
-                                    <a href="#" class="btn d-block w-100 d-sm-inline-block btn-light">Apply now</a>
-                                </div>
-                            </div>
-
-                            <div class="job-box d-md-flex align-items-center justify-content-between mb-30">
-                                <div class="job-left my-4 d-md-flex align-items-center flex-wrap">
-                                    <div class="img-holder mr-md-4 mb-md-0 mb-4 mx-auto mx-md-0 d-md-none d-lg-flex">
-                                        JS
-                                    </div>
-                                    <div class="job-content">
-                                        <h5 class="text-center text-md-left">Javascript Developer</h5>
-                                        <ul class="d-md-flex flex-wrap text-capitalize ff-open-sans">
-                                            <li class="mr-md-4">
-                                                <i class="zmdi zmdi-pin mr-2"></i> Los Angeles
-                                            </li>
-                                            <li class="mr-md-4">
-                                                <i class="zmdi zmdi-money mr-2"></i> 2500-3500/pm
-                                            </li>
-                                            <li class="mr-md-4">
-                                                <i class="zmdi zmdi-time mr-2"></i> Full Time
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="job-right my-4 flex-shrink-0">
-                                    <a href="#" class="btn d-block w-100 d-sm-inline-block btn-light">Apply now</a>
-                                </div>
-                            </div>
 
                         </div>
                     </div>

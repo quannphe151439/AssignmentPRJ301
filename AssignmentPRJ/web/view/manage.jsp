@@ -16,6 +16,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Quản lý cửa hàng - BM</title>
         <link rel="icon" type="image/x-icon" href="img/d.png" />
+        <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
         <!-- Bootstrap icons-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
 
@@ -26,13 +27,7 @@
         <link rel="stylesheet" href="css/manage/newcss.css" type="text/css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-        <!--
-            
-            TemplateMo 552 Video Catalog
-            
-            https://templatemo.com/tm-552-video-catalog
-            
-        -->
+
     </head>
 
     <body>
@@ -61,8 +56,8 @@
         <div class="container-fluid">
             <div class="position-absolute" id="color">
 
-                <div class="position-absolute logout">
-                    <a style="color: #0d6efd">User:${sessionScope.account.username} ${sessionScope.accountStaff.userStaff} </a>|
+                <div class="position-absolute logout" id="logout">
+                    <a style="color: #0d6efd">Xin chào ${sessionScope.account.displayname}${sessionScope.accountStaff.displayname} </a>|
                     <a href="logout" style="text-decoration: none;"> Đăng xuất</a>
 
                 </div>
@@ -95,8 +90,8 @@
                                 <span class="material-icons">paid</span>Chi tiêu cửa hàng</a>
                         </div>
                         <div class="col-12 col-sm-6 admin" style="text-align: center;">
-                            <a class=" btn btn-danger" id="button-link " href="">
-                                <span class="material-icons">manage_accounts</span>Quản lý cửa hàng</a>
+                            <a class=" btn btn-danger" id="button-link " href="admincontrol">
+                                <span class="material-icons">manage_accounts</span>Cài đặt cửa hàng</a>
                         </div>
 
                     </div>
@@ -110,12 +105,12 @@
                     <div class="modal-content">
                         <div class="modal-header">
 
-                            	
+
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
                         <div class="modal-body" style="text-align: center">               
-                                <a class="btn btn-primary btn-lg px-4 me-sm-3" href="writebill">Ghi hóa đơn</a>
-                                <a class="btn btn-primary btn-lg px-4 me-sm-3" style="margin-top: 20px; " href="bills">Kiểm tra hóa đơn</a>
+                            <a class="btn btn-primary btn-lg px-4 me-sm-3" href="writebill" style="width: 70%">Ghi hóa đơn</a>
+                            <a class="btn btn-primary btn-lg px-4 me-sm-3" style="margin-top: 20px; width: 70% " href="bills">Kiểm tra hóa đơn</a>
                         </div>
                     </div>
                 </div>
@@ -123,7 +118,7 @@
 
         </div>
 
-<style>
+        <style>
             body {
                 font-family: 'Varela Round', sans-serif;
             }
@@ -171,7 +166,7 @@
                 color: #999;
             }		
 
-            
+
             .modal-login.modal-dialog {
                 margin-top: 80px;
             }

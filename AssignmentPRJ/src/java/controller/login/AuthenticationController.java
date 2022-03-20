@@ -71,13 +71,14 @@ public class AuthenticationController extends HttpServlet {
         response.addCookie(c_passd);
 
 
-        String username_signup = request.getParameter("username");
-        String password_signup = request.getParameter("pass");
-        String conpass_signup = request.getParameter("conpass");
-        String username_login = request.getParameter("username1");
-        String password_login = request.getParameter("pass1");
+        String username_signup = request.getParameter("username").trim();
+        String password_signup = request.getParameter("pass").trim();
+        String conpass_signup = request.getParameter("conpass").trim();
+        String username_login = request.getParameter("username1").trim();
+        String password_login = request.getParameter("pass1").trim();
         String signup = request.getParameter("signup");
         String login = request.getParameter("login");
+        String displayname = request.getParameter("displayname");
 
         if (login != null && login != "") {  //login
             AccountDBContext db = new AccountDBContext();
@@ -105,10 +106,17 @@ public class AuthenticationController extends HttpServlet {
         }
 
         if (signup != null && signup != "") {   //register
+            if(username_signup.length()<1 || password_signup.length()<1){
+                String mess = "Thông tin đăng ký thiếu, hãy điền lại!";
+                request.setAttribute("mess", mess);
+                request.getRequestDispatcher("/view/login.jsp").forward(request, response);
+                return;
+            }
             if (!conpass_signup.equals(password_signup)) {
                 String mess = "Mật khẩu xác nhận sai, hãy nhập lại";
                 request.setAttribute("mess", mess);
                 request.getRequestDispatcher("/view/login.jsp").forward(request, response);
+                return;
             } else {
 
                 AccountDBContext db = new AccountDBContext();
@@ -120,11 +128,13 @@ public class AuthenticationController extends HttpServlet {
                     String mess = "Username đã tồn tại, hãy nhập username khác.";
                     request.setAttribute("mess", mess);
                     request.getRequestDispatcher("/view/login.jsp").forward(request, response);
+                    return;
                 } else {
                     Account account = new Account();
                     account.setBid(raw_bid);
                     account.setPassword(password_signup);
                     account.setUsername(username_signup);
+                    account.setDisplayname(displayname);
                     request.getSession().setAttribute("account", account);
                     db.insertAccount(account);
                     request.getRequestDispatcher("/view/manage.jsp").forward(request, response);  //sau chỉnh lại

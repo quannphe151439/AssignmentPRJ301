@@ -6,12 +6,17 @@
 package controller.sell;
 
 import controller.login.BaseAuthenticationController;
+import dal.SellDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Account;
+import model.AccountStaff;
+import model.Bill;
 
 /**
  *
@@ -30,6 +35,35 @@ public class listBillController extends BaseAuthenticationController {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        String raw_page = request.getParameter("page");
+        String name = request.getParameter("name") == null ? "" : request.getParameter("name");
+        String raw_filter = request.getParameter("filter")==null ? "0" : request.getParameter("filter");
+        int filter = Integer.parseInt(raw_filter);
+        Account acc = (Account) request.getSession().getAttribute("account");
+        AccountStaff accStaff = (AccountStaff) request.getSession().getAttribute("accountStaff");
+        String bid = "";
+        if (acc != null) {
+            bid = acc.getBid();
+        } else {
+            bid = accStaff.getBid().getBid();
+        }
+        if (raw_page == null || raw_page.trim().length() == 0) {
+            raw_page = "1";
+        }
+        int pageindex = Integer.parseInt(raw_page);
+        int pagesize = 5;
+        SellDBContext db = new SellDBContext();
+        int totalrecords = db.count(bid.trim(), name, filter);
+        ArrayList<Bill> bills = db.getBills(pageindex, pagesize, bid.trim(), name, filter);
+        int totalpage = (totalrecords % pagesize == 0) ? totalrecords / pagesize
+                : (totalrecords / pagesize) + 1;
+        request.setAttribute("bills", bills);
+        request.setAttribute("totalpage", totalpage);
+        request.setAttribute("totalrecords", totalrecords);
+        request.setAttribute("pageindex", pageindex);
+        request.setAttribute("pagesize", pagesize);
         request.getRequestDispatcher("/view/bills.jsp").forward(request, response);
     }
 

@@ -40,6 +40,34 @@
         <servlet-name>listBillController</servlet-name>
         <servlet-class>controller.sell.listBillController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>billDetail</servlet-name>
+        <servlet-class>controller.sell.billDetail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>deleteBill</servlet-name>
+        <servlet-class>controller.sell.deleteBill</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditBill</servlet-name>
+        <servlet-class>controller.sell.EditBill</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SetDebtBill</servlet-name>
+        <servlet-class>controller.sell.SetDebtBill</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StaffControl</servlet-name>
+        <servlet-class>controller.business.StaffControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminControl</servlet-name>
+        <servlet-class>controller.business.AdminControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteStaff</servlet-name>
+        <servlet-class>controller.admin.DeleteStaff</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AuthenticationController</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -79,6 +107,34 @@
     <servlet-mapping>
         <servlet-name>listBillController</servlet-name>
         <url-pattern>/bills</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>billDetail</servlet-name>
+        <url-pattern>/billdetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>deleteBill</servlet-name>
+        <url-pattern>/deletebill</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditBill</servlet-name>
+        <url-pattern>/editbill</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SetDebtBill</servlet-name>
+        <url-pattern>/setdebt</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffControl</servlet-name>
+        <url-pattern>/admincontrol/staff</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminControl</servlet-name>
+        <url-pattern>/admincontrol</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteStaff</servlet-name>
+        <url-pattern>/admincontrol/deletestaff</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -19,6 +19,32 @@ public class Bill {
     private String paytype;
     private int debt;
     private int total;
+    private String time;
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+    
+    
+    
+    public Bill(){
+        
+    }
 
     public Bill(Account bid, String billcode, String name, String phone, String address, int payment, String paytype, int debt, int total) {
         this.bid = bid;

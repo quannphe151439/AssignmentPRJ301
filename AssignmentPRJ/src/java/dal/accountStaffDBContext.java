@@ -21,7 +21,7 @@ public class accountStaffDBContext extends DBContext {
 
     public AccountStaff getAccountStaff(String userStaff, String passStaff, String bid) {
         try {
-            String sql = "select s.userStaff,s.passStaff,s.bid from Account_Staff s inner join Account a on a.bid=s.bid\n"
+            String sql = "select s.userStaff,s.passStaff,s.bid,s.displayname from Account_Staff s inner join Account a on a.bid=s.bid\n"
                     + "where userStaff=? and passStaff=? and a.bid=?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, userStaff);
@@ -32,6 +32,7 @@ public class accountStaffDBContext extends DBContext {
                 AccountStaff accStaff = new AccountStaff();
                 accStaff.setUserStaff(rs.getString("userStaff"));
                 accStaff.setPassStaff(rs.getString("passStaff"));
+                accStaff.setDisplayname(rs.getString("displayname"));
                 Account acc = new Account();
                 acc.setBid(rs.getString("bid"));
                 accStaff.setBid(acc);

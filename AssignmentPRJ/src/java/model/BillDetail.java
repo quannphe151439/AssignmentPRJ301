@@ -18,6 +18,17 @@ public class BillDetail {
     private int unitprice;
     private int price;
     private int num;
+    private Bill idbill;
+
+    public Bill getIdbill() {
+        return idbill;
+    }
+
+    public void setIdbill(Bill idbill) {
+        this.idbill = idbill;
+    }
+    
+    
     
     
 

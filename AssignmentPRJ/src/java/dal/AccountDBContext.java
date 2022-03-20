@@ -21,7 +21,7 @@ public class AccountDBContext extends DBContext {
 
     public Account getAccount(String username, String password) {
         try {
-            String sql = "SELECT username,password,bid FROM Account WHERE username = ? AND password = ?";
+            String sql = "SELECT username,password,bid,displayname FROM Account WHERE username = ? AND password = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, username);
             stm.setString(2, password);
@@ -31,6 +31,7 @@ public class AccountDBContext extends DBContext {
                 account.setUsername(rs.getString("username"));
                 account.setPassword(rs.getString("password"));
                 account.setBid(rs.getString("bid"));
+                account.setDisplayname(rs.getString("displayname"));
                 return account;
             }
 
@@ -73,53 +74,16 @@ public class AccountDBContext extends DBContext {
         return false;
     }
     
-//    public String getBid(String username) {
-//        String bid="";
-//        try {
-//            String sql = "SELECT bid FROM Account where username=? ";
-//            PreparedStatement stm = connection.prepareStatement(sql);
-//            stm.setString(1, username);
-//            ResultSet rs = stm.executeQuery();
-//            if (rs.next()) {
-//                bid=rs.getString("bid");
-//            }
-//        } catch (SQLException ex) {
-//            Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        return bid;
-//    }
-//    public int checkRole(String username, String url)
-//    {
-//        try {
-//            String sql = "SELECT COUNT(*) as Total \n" +
-//                "	FROM Account a INNER JOIN Account_Group ag ON a.username = ag.username\n" +
-//                "					INNER JOIN [Group] g ON ag.gid = g.gid\n" +
-//                "					INNER JOIN Group_Feature gf ON gf.gid = g.gid\n" +
-//                "					INNER JOIN Feature f ON f.fid = gf.fid\n" +
-//                "	WHERE a.username = ? AND f.url = ?";
-//            PreparedStatement stm = connection.prepareStatement(sql);
-//            stm.setString(1,username);
-//            stm.setString(2, url);
-//            ResultSet rs = stm.executeQuery();
-//            if(rs.next())
-//            {
-//                return rs.getInt("Total");
-//            }
-//            
-//        } catch (SQLException ex) {
-//            Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        return -1;
-//    }
     
     public void insertAccount(Account a) {
-        String sql = "insert into Account(username,password,bid) values(?,?,?)";
+        String sql = "insert into Account(username,password,bid,displayname) values(?,?,?,?)";
         PreparedStatement stm = null;
         try {
             stm = connection.prepareStatement(sql);
             stm.setString(1, a.getUsername());
             stm.setString(2, a.getPassword());
             stm.setString(3, a.getBid());
+            stm.setString(4, a.getDisplayname());
             stm.executeUpdate(); //INSERT UPDATE DELETE
         } catch (SQLException ex) {
             Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
