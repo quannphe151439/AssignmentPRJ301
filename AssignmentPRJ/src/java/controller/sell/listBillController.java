@@ -60,6 +60,8 @@ public class listBillController extends BaseAuthenticationController {
         int totalpage = (totalrecords % pagesize == 0) ? totalrecords / pagesize
                 : (totalrecords / pagesize) + 1;
         request.setAttribute("bills", bills);
+        request.setAttribute("filter", filter);
+        request.setAttribute("name", name);
         request.setAttribute("totalpage", totalpage);
         request.setAttribute("totalrecords", totalrecords);
         request.setAttribute("pageindex", pageindex);

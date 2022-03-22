@@ -6,12 +6,17 @@
 package controller.business;
 
 import controller.login.BaseAuthenticationController;
+import dal.ExpenseDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Account;
+import model.AccountStaff;
+import model.Bill;
 
 /**
  *
@@ -30,6 +35,48 @@ public class ExpenseController extends BaseAuthenticationController {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String raw_page = request.getParameter("page");
+        String raw_date = request.getParameter("search")==null?"":request.getParameter("search");
+        
+        int year = 0;
+        int month = 0;
+        int day = 0;
+//        int sum=0;
+        if (raw_date != ""||raw_date.trim().length()>0) {
+            String date[] = raw_date.split("-");
+            year=Integer.parseInt(date[0]);
+            month=Integer.parseInt(date[1]);
+            day=Integer.parseInt(date[2]);
+        }
+        Account acc = (Account) request.getSession().getAttribute("account");
+        AccountStaff accStaff = (AccountStaff) request.getSession().getAttribute("accountStaff");
+        String bid = "";
+        if (acc != null) {
+            bid = acc.getBid();
+        } else {
+            bid = accStaff.getBid().getBid();
+        }
+        if (raw_page == null || raw_page.trim().length() == 0) {
+            raw_page = "1";
+        }
+        int pageindex = Integer.parseInt(raw_page);
+        int pagesize = 5;
+        ExpenseDBContext db = new ExpenseDBContext();
+        ExpenseDBContext dbnew = new ExpenseDBContext();
+        ExpenseDBContext da = new ExpenseDBContext();
+        int totalrecords = dbnew.count(bid, year, month, day);
+        int sum=da.sum(bid, year, month, day);
+        ArrayList<Bill> bills = db.getBills(pageindex, pagesize, bid.trim(), year, month, day);
+//        sum=db.sum(bid, year, month, day);
+        int totalpage = (totalrecords % pagesize == 0) ? totalrecords / pagesize
+                : (totalrecords / pagesize) + 1;
+        request.setAttribute("bills", bills);
+        request.setAttribute("search", raw_date);
+        request.setAttribute("totalpage", totalpage);
+        request.setAttribute("sum", sum);
+        request.setAttribute("totalrecords", totalrecords);
+        request.setAttribute("pageindex", pageindex);
+        request.setAttribute("pagesize", pagesize);
         request.getRequestDispatcher("/view/expense.jsp").forward(request, response);
     }
 

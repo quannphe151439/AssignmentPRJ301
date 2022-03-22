@@ -132,14 +132,14 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach items="${requestScope.staffs}" var="s">
+                                    <c:forEach items="${requestScope.staffs}" var="s" varStatus="i">
                                         <tr>
                                             <td class="text-center">${s.displayname}</td>
                                             <td class="text-center">${s.userStaff}</td>
                                             <td class="text-center">
                                                 <input type="password" id="myInput" class="text-center" value="${s.passStaff}" readonly>
                                             </td>
-                                            <td><a href="" onclick="del(${s.userStaff})" class="btn btn-danger btn-sm">Xóa</a></td>
+                                            <td><a href="" onclick="del(${i.index})" class="btn btn-danger btn-sm">Xóa</a></td>
                                         </tr>
                                     </c:forEach>
                                 </tbody>

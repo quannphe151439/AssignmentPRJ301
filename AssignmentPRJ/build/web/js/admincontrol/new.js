@@ -36,10 +36,10 @@ function checkvalue() {
     }
 }
 
-function del(user) {
+function del(pos) {
     var result = confirm("Bạn có chắc muốn xóa nhân viên này không?");
     if (result)
     {
-        window.location.href = "deletestaff?user=" + user;
+        window.location.href = "deletestaff?user=" + pos;
     }
 }

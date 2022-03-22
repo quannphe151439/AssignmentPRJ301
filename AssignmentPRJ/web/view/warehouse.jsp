@@ -160,7 +160,7 @@
                                         <div class="form-group">
                                             <label>Tìm kiếm theo tên:</label>
                                             <form action="warehouse" method="POST">
-                                                <div><input class="form-control w-100" type="text" placeholder="Name" name="search" ></div>
+                                                <div><input class="form-control w-100" type="text" placeholder="Name" name="search" value="${requestScope.search}"></div>
 
                                                 <button class="btn btn-success btn-block" type="submit">Tìm kiếm</button>
                                             </form>
@@ -180,7 +180,7 @@
     </body>
     <script>
 
-        pagger('paggerbot',${requestScope.pageindex},${requestScope.totalpage}, 3);
+        pagger('paggerbot',${requestScope.pageindex},${requestScope.totalpage},'${requestScope.search}','${requestScope.month}', 3);
     </script>
 
 </html>

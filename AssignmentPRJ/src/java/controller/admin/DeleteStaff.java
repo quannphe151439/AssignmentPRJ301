@@ -9,6 +9,7 @@ import controller.login.BaseAuthenticationController2;
 import dal.AdminDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -43,7 +44,9 @@ public class DeleteStaff extends BaseAuthenticationController2 {
             bid = acc;
         }
         AdminDBContext db = new AdminDBContext();
-        db.DeleteStaff(bid.getBid().trim(), userStaff);
+        ArrayList<AccountStaff> list =db.getStaffs(bid.getBid().trim());
+        AccountStaff staff = list.get(Integer.parseInt(userStaff));
+        db.DeleteStaff(bid.getBid().trim(), staff.getUserStaff().trim());
         response.sendRedirect("staff");
     }
 

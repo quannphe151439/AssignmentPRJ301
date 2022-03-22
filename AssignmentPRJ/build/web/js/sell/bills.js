@@ -3,19 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-function pagger(id, pageindex, totalpage, gap)
+function pagger(id, pageindex, totalpage,name,filter, gap)
 {
     var container = document.getElementById(id);
     var result = '';
     //generate first
     if (pageindex - gap > 1)
-        result += '<li class="page-item"><a href="bills?page=1" class="page-link">1</a></li>';
+        result += '<li class="page-item"><a href="bills?page=1&name='+name+'&filter='+filter+'" class="page-link">1</a></li>';
 
     for (var i = pageindex - gap; i < pageindex; i++)
     {
         if (i >= 1)
         {
-            result += '<li class="page-item"><a href="bills?page=' + i + '" class="page-link">' + i + '</a></li>';
+            result += '<li class="page-item"><a href="bills?page=' + i + '&name='+name+'&filter='+filter+'" class="page-link">' + i + '</a></li>';
         }
     }
 
@@ -26,13 +26,13 @@ function pagger(id, pageindex, totalpage, gap)
     {
         if (i <= totalpage)
         {
-            result += '<li class="page-item"><a href="bills?page=' + i + '" class="page-link">' + i + '</a></li>';
+            result += '<li class="page-item"><a href="bills?page=' + i + '&name='+name+'&filter='+filter+'" class="page-link">' + i + '</a></li>';
         }
     }
 
     //generate last
     if (pageindex + gap < totalpage)
-        result += '<li class="page-item"><a href="bills?page=' + totalpage + '" class="page-link">' + totalpage + '</a></li>';
+        result += '<li class="page-item"><a href="bills?page=' + totalpage + '&name='+name+'&filter='+filter+'" class="page-link">' + totalpage + '</a></li>';
 
     container.innerHTML = result;
 }

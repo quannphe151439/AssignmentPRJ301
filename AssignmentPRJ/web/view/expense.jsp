@@ -72,41 +72,16 @@
             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col">
 
 
-                <div class="tm-bg-primary-dark tm-block tm-block-content">
-                    <form action="expense" method="POST">
+                <div class="tm-bg-primary-dark tm-block tm-block-content ">
+                    <form action="expense" method="POST" id="noww">
                         <div class="row">
-                            <p class="col-2" >Theo năm</p>
-                            <select class="col-9 col-lg-5 custom-select">
-                                <option value="0">Select account</option>
-                                <option value="1">Admin</option>
-                                <option value="2">Editor</option>
-                                <option value="3">Merchant</option>
-                                <option value="4">Customer</option>
-                            </select>
+                            <p class="col-2 d-flex justify-content-center" >Theo ngày cụ thể</p>
+                            <input class="col-9 col-lg-5 custom-select" type="date" name="search" value="0">
                         </div>
-                        <div class="row mt-2">
-                            <p class="col-2" >Theo tháng</p>
-                            <select class="col-9 col-lg-5 custom-select">
-                                <option value="0">Select account</option>
-                                <option value="1">Admin</option>
-                                <option value="2">Editor</option>
-                                <option value="3">Merchant</option>
-                                <option value="4">Customer</option>
-                            </select>
-                        </div>
-                        <div class="row mt-2">
-
-                            <p class="col-2">Theo ngày</p>
-                            <select class="col-9 col-lg-5 custom-select">
-                                <option value="0">Select account</option>
-                                <option value="1">Admin</option>
-                                <option value="2">Editor</option>
-                                <option value="3">Merchant</option>
-                                <option value="4">Customer</option>
-                            </select>
-                        </div> 
+                        
+                        
                         <div class="tm-block-settings mt-4">
-                            <button type="submit" class="btn btn-primary btn-block text-uppercase">
+                            <button type="button" onclick="checkvalue()" class="btn btn-primary btn-block text-uppercase">
                                 Lọc kết quả
                             </button>
                         </div>
@@ -120,12 +95,12 @@
 
 
                 <div class="tm-bg-primary-dark tm-block tm-block-products">
-                    <h2 class="tm-block-title">Nhập hàng</h2>
+                    <h2 class="tm-block-title">Nhập hàng trong tháng</h2>
                     <div class="tm-notification-item">
                         <h2 class="text-center">1.500.000 VNĐ</h2>
                     </div>
-                    <div class="tm-product-table-container">
-                        <table class="table table-hover tm-table-small tm-product-table">
+                    <div class="tm-product-table-container ">
+                        <table class="table table-hover tm-table-small tm-product-table ">
                             <thead>
                                 <tr>
                                     <th scope="col">&nbsp;</th>
@@ -153,6 +128,7 @@
                             </tbody>
                         </table>
                     </div>
+                    <!--<ul class="pagination mt-3 mb-0" id="paggerLeft"></ul>-->
                     <!-- table container -->
 
                 </div>
@@ -160,39 +136,39 @@
 
 
             <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
-                <div class="tm-bg-primary-dark tm-block tm-block-product-categories">
-                    <h2 class="tm-block-title">Bán hàng</h2>
+                <div class="tm-bg-primary-dark tm-block tm-block-product-categories ">
+                    <h2 class="tm-block-title">Bán hàng trong tháng</h2>
                     <div class="tm-notification-item">
-                        <h2 class="text-center">1.500.000 VNĐ</h2>
+                        <h2 class="text-center" id="money" onload=""></h2>
+                     
                     </div>
                     <div class="tm-product-table-container">
                         <table class="table table-hover tm-table-small tm-product-table">
                             <thead>
                                 <tr>
-                                    <th scope="col">&nbsp;</th>
-                                    <th scope="col">PRODUCT NAME</th>
-                                    <th scope="col">UNIT SOLD</th>
-                                    <th scope="col">IN STOCK</th>
-                                    <th scope="col">EXPIRE DATE</th>
-                                    <th scope="col">&nbsp;</th>
+
+                                    <th scope="col">Số hóa đơn</th>
+                                    <th scope="col">Tổng</th>
+                                    <th scope="col">Thời gian</th>
+
+
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row"><input type="checkbox" /></th>
-                                    <td class="tm-product-name">Lorem Ipsum Product 1</td>
-                                    <td>1,450</td>
-                                    <td>550</td>
-                                    <td>28 March 2019</td>
-                                    <td>
-                                        <a href="#" class="tm-product-delete-link">
-                                            <i class="far fa-trash-alt tm-product-delete-icon"></i>
-                                        </a>
-                                    </td>
-                                </tr>
+                                <c:forEach items="${requestScope.bills}" var="b">
+                                    <tr>
 
+                                        <td>${b.billcode}</td>
+                                        <td>${b.total}</td>
+                                        <td>${b.time}</td>
+
+                                    </tr>
+                                </c:forEach>
                             </tbody>
                         </table>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <ul class="pagination mt-3" id="paggerRight"></ul>
                     </div>
                     <!-- table container -->
 
@@ -212,12 +188,12 @@
     <!-- https://jquery.com/download/ -->
     <script src="js/expense/bootstrap.min.js"></script>
     <!-- https://getbootstrap.com/ -->
+    <script src="js/expense/new.js" type="text/javascript"></script>
     <script>
-        $(function () {
-            $(".tm-product-name").on("click", function () {
-                window.location.href = "edit-product.html";
-            });
-        });
+
+//        pagger('paggerLeft',${requestScope.pageindex},${requestScope.totalpage}, 3);
+window.onload=convert(${requestScope.sum});
+pagger('paggerRight',${requestScope.pageindex},${requestScope.totalpage},'${requestScope.search}', 3);
     </script>
 </body>
 

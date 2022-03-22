@@ -105,8 +105,7 @@
                     <!-- START Pagination -->
                     <nav aria-label="Page navigation">
                         <ul class="pagination pagination-reset justify-content-center">
-                            <ul class="pagination mt-3 mb-0" id="paggerbot">
-                            </ul>
+                            <ul class="pagination mt-3 mb-0" id="paggerbot"></ul>
                     </nav>
                     <!-- END Pagination -->
                 </div>
@@ -117,5 +116,5 @@
 </html>
 <script>
 
-    pagger('paggerbot',${requestScope.pageindex},${requestScope.totalpage}, 3);
+    pagger('paggerbot',${requestScope.pageindex},${requestScope.totalpage},'${requestScope.name}',${requestScope.filter}, 3);
 </script>
