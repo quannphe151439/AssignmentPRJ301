@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.Account;
 import model.AccountStaff;
 import model.Bill;
+import model.Import;
 
 /**
  *
@@ -64,19 +65,42 @@ public class ExpenseController extends BaseAuthenticationController {
         ExpenseDBContext db = new ExpenseDBContext();
         ExpenseDBContext dbnew = new ExpenseDBContext();
         ExpenseDBContext da = new ExpenseDBContext();
+        
         int totalrecords = dbnew.count(bid, year, month, day);
         int sum=da.sum(bid, year, month, day);
         ArrayList<Bill> bills = db.getBills(pageindex, pagesize, bid.trim(), year, month, day);
-//        sum=db.sum(bid, year, month, day);
         int totalpage = (totalrecords % pagesize == 0) ? totalrecords / pagesize
                 : (totalrecords / pagesize) + 1;
         request.setAttribute("bills", bills);
-        request.setAttribute("search", raw_date);
+        
         request.setAttribute("totalpage", totalpage);
         request.setAttribute("sum", sum);
         request.setAttribute("totalrecords", totalrecords);
         request.setAttribute("pageindex", pageindex);
         request.setAttribute("pagesize", pagesize);
+        
+        String raw_pageL = request.getParameter("pageleft");   //LEFT
+        if (raw_pageL == null || raw_pageL.trim().length() == 0) {
+            raw_pageL = "1";
+        }
+        int pageindexL = Integer.parseInt(raw_pageL);
+        int pagesizeL = 5;
+        ExpenseDBContext importdb = new ExpenseDBContext();
+        ExpenseDBContext importdb2 = new ExpenseDBContext();
+        ExpenseDBContext importdbnew = new ExpenseDBContext();
+        int totalrecordsL=importdb.countI(bid, year, month, day);
+        int sumL=importdb2.sumI(bid, year, month, day);
+        ArrayList<Import> imports = importdbnew.getImports(pageindexL, pagesizeL, bid.trim(), year, month, day);
+        int totalpageL = (totalrecordsL % pagesizeL == 0) ? totalrecordsL / pagesizeL
+                : (totalrecordsL / pagesizeL) + 1;
+        
+        request.setAttribute("imports", imports);
+        request.setAttribute("search", raw_date);
+        request.setAttribute("totalpageL", totalpageL);
+        request.setAttribute("sumL", sumL);
+        request.setAttribute("totalrecordsL", totalrecordsL);
+        request.setAttribute("pageindexL", pageindexL);
+        request.setAttribute("pagesizeL", pagesizeL);
         request.getRequestDispatcher("/view/expense.jsp").forward(request, response);
     }
 

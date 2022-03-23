@@ -76,10 +76,10 @@
                     <form action="expense" method="POST" id="noww">
                         <div class="row">
                             <p class="col-2 d-flex justify-content-center" >Theo ngày cụ thể</p>
-                            <input class="col-9 col-lg-5 custom-select" type="date" name="search" value="0">
+                            <input class="col-9 col-lg-5 custom-select" type="date" name="search" value="${requestScope.search}">
                         </div>
-                        
-                        
+
+
                         <div class="tm-block-settings mt-4">
                             <button type="button" onclick="checkvalue()" class="btn btn-primary btn-block text-uppercase">
                                 Lọc kết quả
@@ -97,38 +97,35 @@
                 <div class="tm-bg-primary-dark tm-block tm-block-products">
                     <h2 class="tm-block-title">Nhập hàng trong tháng</h2>
                     <div class="tm-notification-item">
-                        <h2 class="text-center">1.500.000 VNĐ</h2>
+                        <h2 class="text-center" id="money2"></h2>
                     </div>
                     <div class="tm-product-table-container ">
                         <table class="table table-hover tm-table-small tm-product-table ">
                             <thead>
                                 <tr>
-                                    <th scope="col">&nbsp;</th>
-                                    <th scope="col">PRODUCT NAME</th>
-                                    <th scope="col">UNIT SOLD</th>
-                                    <th scope="col">IN STOCK</th>
-                                    <th scope="col">EXPIRE DATE</th>
-                                    <th scope="col">&nbsp;</th>
+                                   <th scope="col">Nguồn hàng</th>
+                                    <th scope="col">Tổng</th>
+                                    <th scope="col">Thời gian</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row"><input type="checkbox" /></th>
-                                    <td class="tm-product-name">Lorem Ipsum Product 1</td>
-                                    <td>1,450</td>
-                                    <td>550</td>
-                                    <td>28 March 2019</td>
-                                    <td>
-                                        <a href="#" class="tm-product-delete-link">
-                                            <i class="far fa-trash-alt tm-product-delete-icon"></i>
-                                        </a>
-                                    </td>
-                                </tr>
+                                <c:forEach items="${requestScope.imports}" var="i">
+                                    <tr>
+
+                                        <td>${i.iname}</td>
+                                        <td>${i.itotal}</td>
+                                        <td>${i.time}</td>
+
+                                    </tr>
+                                </c:forEach>
 
                             </tbody>
                         </table>
+
                     </div>
-                    <!--<ul class="pagination mt-3 mb-0" id="paggerLeft"></ul>-->
+                    <div class="d-flex justify-content-center">
+                        <ul class="pagination mt-3" id="paggerLeft"></ul>
+                    </div>
                     <!-- table container -->
 
                 </div>
@@ -139,8 +136,8 @@
                 <div class="tm-bg-primary-dark tm-block tm-block-product-categories ">
                     <h2 class="tm-block-title">Bán hàng trong tháng</h2>
                     <div class="tm-notification-item">
-                        <h2 class="text-center" id="money" onload=""></h2>
-                     
+                        <h2 class="text-center" id="money" ></h2>
+
                     </div>
                     <div class="tm-product-table-container">
                         <table class="table table-hover tm-table-small tm-product-table">
@@ -191,9 +188,10 @@
     <script src="js/expense/new.js" type="text/javascript"></script>
     <script>
 
-//        pagger('paggerLeft',${requestScope.pageindex},${requestScope.totalpage}, 3);
-window.onload=convert(${requestScope.sum});
-pagger('paggerRight',${requestScope.pageindex},${requestScope.totalpage},'${requestScope.search}', 3);
+                                pagger2('paggerLeft',${requestScope.pageindexL},${requestScope.totalpageL}, '${requestScope.search}', 3);
+                                window.onload = convert(${requestScope.sum});
+                                window.onload = convert2(${requestScope.sumL});
+                                pagger('paggerRight',${requestScope.pageindex},${requestScope.totalpage}, '${requestScope.search}', 3);
     </script>
 </body>
 
