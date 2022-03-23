@@ -4,7 +4,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Quan/FU/sp22-PRJ/AssignmentPRJ/src/java/dal/WarehouseDBContext.java</file>
+            <file>file:/C:/Users/Quan/FU/sp22-PRJ/AssignmentPRJ/web/js/warehouse/pagger.js</file>
             <file>file:/C:/Users/Quan/FU/sp22-PRJ/AssignmentPRJ/src/java/dal/ExpenseDBContext.java</file>
+            <file>file:/C:/Users/Quan/FU/sp22-PRJ/AssignmentPRJ/web/view/warehouse.jsp</file>
             <file>file:/C:/Users/Quan/FU/sp22-PRJ/AssignmentPRJ/src/java/controller/business/ExpenseController.java</file>
             <file>file:/C:/Users/Quan/FU/sp22-PRJ/AssignmentPRJ/src/java/controller/business/warehouse.java</file>
         </group>

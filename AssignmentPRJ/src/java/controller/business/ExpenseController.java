@@ -36,6 +36,8 @@ public class ExpenseController extends BaseAuthenticationController {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         String raw_page = request.getParameter("page");
         String raw_date = request.getParameter("search")==null?"":request.getParameter("search");
         

@@ -56,6 +56,8 @@ public class warehouse extends BaseAuthenticationController {
         int pageindex = Integer.parseInt(raw_page);
         int pagesize = 4;
         ArrayList<Warehouse> ware = db.getProducts(pageindex, pagesize, bid,search);
+        WarehouseDBContext dbnew = new WarehouseDBContext();
+         int totalrecords = dbnew.count(bid,search);
         if(edit!=null ){
             Warehouse pro=ware.get(Integer.parseInt(edit));
             request.setAttribute("edit", pro);
@@ -63,9 +65,10 @@ public class warehouse extends BaseAuthenticationController {
         }
         if(month!=null){
             ware=db.getProductsMonth(pageindex, pagesize, bid);
+            totalrecords = dbnew.countM(bid);
         }
+       
         
-        int totalrecords = db.count(bid);
         int totalpage = (totalrecords % pagesize == 0) ? totalrecords / pagesize
                 : (totalrecords / pagesize) + 1;
         request.setAttribute("wares", ware);

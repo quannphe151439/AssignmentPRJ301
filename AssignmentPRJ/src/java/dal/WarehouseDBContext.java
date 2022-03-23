@@ -168,9 +168,32 @@ public class WarehouseDBContext extends DBContext {
         return ware;
     }
 
-    public int count(String bid) {
+    public int count(String bid,String search) {
         try {
             String sql = "SELECT count(*) as total FROM Warehouse where bid=?";
+            if(search!=null){
+                sql = "SELECT count(*) as total FROM Warehouse where bid=? and product like ?";
+            }
+            PreparedStatement stm = connection.prepareStatement(sql);
+            if(search==null){
+            stm.setString(1, bid);
+            }else{
+                stm.setString(1, bid);
+                stm.setString(2, "%"+search+"%");
+            }
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("total");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(WarehouseDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
+    }
+    
+    public int countM(String bid) {
+        try {
+            String sql = "SELECT count(*) as total FROM Warehouse where bid=? and month(time)=month(getdate())";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, bid);
             ResultSet rs = stm.executeQuery();
@@ -178,7 +201,7 @@ public class WarehouseDBContext extends DBContext {
                 return rs.getInt("total");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ImportDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(WarehouseDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return -1;
     }
