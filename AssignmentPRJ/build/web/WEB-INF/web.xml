@@ -1,5 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <filter>
+        <filter-name>FilterAdminControl</filter-name>
+        <filter-class>Filter.FilterAdminControl</filter-class>
+    </filter>
+    <filter>
+        <filter-name>FilterStaff</filter-name>
+        <filter-class>Filter.FilterStaff</filter-class>
+    </filter>
+    <filter>
+        <filter-name>FilterExpense</filter-name>
+        <filter-class>Filter.FilterExpense</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>FilterExpense</filter-name>
+        <servlet-name>ExpenseController</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FilterStaff</filter-name>
+        <servlet-name>StaffControl</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FilterAdminControl</filter-name>
+        <servlet-name>AdminControl</servlet-name>
+    </filter-mapping>
     <servlet>
         <servlet-name>AuthenticationController</servlet-name>
         <servlet-class>controller.login.AuthenticationController</servlet-class>
