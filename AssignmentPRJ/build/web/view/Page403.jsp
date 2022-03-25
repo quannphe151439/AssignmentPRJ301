@@ -23,7 +23,7 @@
 
             <h1>403-CẤM</h1>
 
-            <p>Hãy luyện tập thêm để đủ năng lực vào đây!</p>
+            <p style="text-align: center">Trình còn non, hãy luyện tập thêm để đủ năng lực vào đây!</p>
 
             <svg class="grid-lines"
                  viewbox="0 0 100 150"

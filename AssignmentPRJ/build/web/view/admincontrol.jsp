@@ -49,14 +49,14 @@
                                     <span class="sr-only">(current)</span>
                                 </a>
                             </li>
-                            <li class="nav-item">
+<!--                            <li class="nav-item">
                                 <a class="nav-link" href="">
                                     <span class="material-icons">storefront</span> Cửa hàng
                                 </a>
-                            </li>
+                            </li>-->
 
                             <li class="nav-item">
-                                <a class="nav-link" href="">
+                                <a class="nav-link" href="../admincontrol/account">
                                     <span class="material-icons">account_circle</span> Tài khoản
                                 </a>
                             </li>
@@ -77,6 +77,7 @@
                 <div class="row">
                     <div class="col">
                         <h4 class=" mt-5 mb-5">Xin chào, <b>${requestScope.account.displayname}</b></h4>
+                        <h6 class=" mt-5 mb-5">Mã cửa hàng của bạn: <b>${requestScope.account.bid}</b></h6>
                     </div>
                 </div>
                 <!-- row -->
