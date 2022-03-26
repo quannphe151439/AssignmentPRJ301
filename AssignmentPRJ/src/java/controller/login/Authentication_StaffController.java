@@ -90,7 +90,7 @@ public class Authentication_StaffController extends HttpServlet {
                 response.addCookie(c_pass);
                 response.addCookie(c_bid);
             }
-            request.getRequestDispatcher("/view/manage.jsp").forward(request, response);  //sau chỉnh lại
+            response.sendRedirect("manage");  //sau chỉnh lại
         } else {
             String mess = "Thông tin đăng nhập sai, hãy đăng nhập lại!";
             request.setAttribute("mess", mess);

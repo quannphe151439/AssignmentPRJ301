@@ -16,6 +16,17 @@ public class ImportDetail {
     private int iunitprice;
     private int iprice;
     private String idescribe;
+    private int num;
+
+    public int getNum() {
+        return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
+    }
+    
+    
     
 
     public Import getIid() {

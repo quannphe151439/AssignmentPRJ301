@@ -63,6 +63,8 @@ public class AuthenticationController extends HttpServlet {
             throws ServletException, IOException {
         //logout khi login vào acc khác
         request.getSession().invalidate();
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         Cookie c_userd = new Cookie("username", "");
         Cookie c_passd = new Cookie("password", ""); 
         c_userd.setMaxAge(0);
@@ -137,7 +139,7 @@ public class AuthenticationController extends HttpServlet {
                     account.setDisplayname(displayname);
                     request.getSession().setAttribute("account", account);
                     db.insertAccount(account);
-                    request.getRequestDispatcher("/view/manage.jsp").forward(request, response);  //sau chỉnh lại
+                    response.sendRedirect("manage");  //sau chỉnh lại
                 }
             }
         }

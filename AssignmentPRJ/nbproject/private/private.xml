@@ -2,6 +2,16 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/Quan/FU/sp22-PRJ/AssignmentPRJ/web/view/ImportDetail.jsp</file>
+            <file>file:/C:/Users/Quan/FU/sp22-PRJ/AssignmentPRJ/src/java/controller/sell/EditBill.java</file>
+            <file>file:/C:/Users/Quan/FU/sp22-PRJ/AssignmentPRJ/src/java/controller/Import/SetDebtImport.java</file>
+            <file>file:/C:/Users/Quan/FU/sp22-PRJ/AssignmentPRJ/src/java/dal/ImportDBContext.java</file>
+            <file>file:/C:/Users/Quan/FU/sp22-PRJ/AssignmentPRJ/src/java/controller/sell/SetDebtBill.java</file>
+            <file>file:/C:/Users/Quan/FU/sp22-PRJ/AssignmentPRJ/src/java/dal/SellDBContext.java</file>
+            <file>file:/C:/Users/Quan/FU/sp22-PRJ/AssignmentPRJ/src/java/controller/sell/billController.java</file>
+            <file>file:/C:/Users/Quan/FU/sp22-PRJ/AssignmentPRJ/src/java/controller/business/importController.java</file>
+            <file>file:/C:/Users/Quan/FU/sp22-PRJ/AssignmentPRJ/src/java/controller/Import/editImport.java</file>
+        </group>
     </open-files>
 </project-private>

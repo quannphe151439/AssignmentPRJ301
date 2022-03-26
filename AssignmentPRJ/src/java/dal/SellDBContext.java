@@ -101,7 +101,7 @@ public class SellDBContext extends DBContext {
                     + "           ,CURRENT_TIMESTAMP)";
             PreparedStatement stm_add = connection.prepareStatement(add);
             stm_add.setInt(1, d.getIdbill().getId());
-            stm_add.setBoolean(2, d.getStatus());
+            stm_add.setBoolean(2, d.isStatus());
             stm_add.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(SellDBContext.class.getName()).log(Level.SEVERE, null, ex);
@@ -246,7 +246,7 @@ public class SellDBContext extends DBContext {
             } else {
                 switch (filter) {
                     case 1:
-                        sql += "and name like ? and debt=0";
+                        sql += "and name like ? and not debt=0";
                         break;
                     case 2:
                         sql += "and name like ? and month(time)=month(getdate())";
@@ -267,7 +267,7 @@ public class SellDBContext extends DBContext {
                 return rs.getInt("total");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ImportDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SellDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return -1;
     }
@@ -319,14 +319,14 @@ public class SellDBContext extends DBContext {
                 b.setBid(acc);
                 b.setId(rs.getInt("id"));
                 b.setBillcode(rs.getString("billcode").trim());
-                b.setName(rs.getString("name").trim());
+                b.setName(rs.getString("name"));
                 b.setPhone(rs.getString("phone").trim());
-                b.setAddress(rs.getString("address").trim());
+                b.setAddress(rs.getString("address"));
                 b.setPayment(rs.getInt("payment"));
-                b.setPaytype(rs.getString("paytype").trim());
+                b.setPaytype(rs.getString("paytype"));
                 b.setDebt(rs.getInt("debt"));
                 b.setTotal(rs.getInt("total"));
-                b.setTime(rs.getString("time"));
+                b.setTime(rs.getString("time") == null ? "" : rs.getString("time").substring(0, 19));
                 return b;
             }
         } catch (SQLException ex) {
@@ -385,7 +385,6 @@ public class SellDBContext extends DBContext {
                 + "      ,[paytype] = ?\n"
                 + "      ,[debt] = ?\n"
                 + "      ,[total] = ?\n"
-                + "      ,[time] = CURRENT_TIMESTAMP\n"
                 + " WHERE billcode=? and bid=?";
         PreparedStatement stm = null;
         try {
@@ -409,7 +408,7 @@ public class SellDBContext extends DBContext {
                         + "      ,[unitprice] = ?\n"
                         + "      ,[price] = ?\n"
                         + "      ,[describe] = ?\n"
-                        + " WHERE bid=? and billcode=?";
+                        + " WHERE bid=? and billcode=? and num=?";
                 PreparedStatement stm_update = connection.prepareStatement(up);
                 stm_update.setString(1, detail.getProduct());
                 stm_update.setInt(2, detail.getQuantity());
@@ -418,6 +417,7 @@ public class SellDBContext extends DBContext {
                 stm_update.setString(5, detail.getDescribe());
                 stm_update.setString(6, bid);
                 stm_update.setString(7, billcode);
+                stm_update.setInt(8, detail.getNum());
                 stm_update.executeUpdate();
             }
         } catch (SQLException ex) {
@@ -465,6 +465,7 @@ public class SellDBContext extends DBContext {
                     + " WHERE idbill=?";
             PreparedStatement stm_update = connection.prepareStatement(up);
             stm_update.setInt(1, id);
+            stm_update.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(SellDBContext.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -512,6 +513,24 @@ public class SellDBContext extends DBContext {
             Logger.getLogger(SellDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+    
+    public ArrayList<Integer> getNum(String bid,String billcode) {
+        ArrayList<Integer> list = new ArrayList<>();
+        try {
+            String sql = "select num from BillDetail where bid=? and billcode=?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, bid.trim());
+            stm.setString(2, billcode.trim());
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                int num = rs.getInt("num");
+                list.add(num);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ImportDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
     }
 
 }

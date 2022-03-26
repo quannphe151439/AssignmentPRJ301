@@ -92,15 +92,15 @@ public class billController extends BaseAuthenticationController {
         } else {
             bid = acc;
         }
-        Boolean status=debt>0?true:false; //lay id cua bill gan nhat, de gan cho billdetail va billdebt
+        Boolean status = debt > 0 ? true : false;
         SellDBContext db = new SellDBContext();
         String raw_billcode = db.getBillcode(bid.getBid().trim());  //lấy billcode gần nhất 
-        int idbill = db.getIdbill(bid.getBid().trim());  //lấy billcode gần nhất 
+        int idbill = db.getIdbill(bid.getBid().trim());  //lấy idbill gần nhất 
         String billcode = rand_billcode(raw_billcode);  //set lại billcode để ko bị trùng
         Bill b = new Bill(bid, billcode, name, phone, address, payment, paytype, debt, total);
         Bill bil = new Bill();
-        bil.setId(idbill+1);
-        BillDebt billdebt= new BillDebt();
+        bil.setId(idbill + 1);
+        BillDebt billdebt = new BillDebt();
         billdebt.setIdbill(bil);
         billdebt.setStatus(status);
         ArrayList<BillDetail> list = new ArrayList<>();
@@ -116,7 +116,7 @@ public class billController extends BaseAuthenticationController {
             d.setPrice(Integer.parseInt(price[i]));
             list.add(d);
         }
-        db.insertBill(b, list,billdebt);
+        db.insertBill(b, list, billdebt);
         String re = "Lưu hóa đơn thành công!";
         request.setAttribute("mess", re);
         request.getRequestDispatcher("/view/writebill.jsp").forward(request, response);
@@ -130,20 +130,24 @@ public class billController extends BaseAuthenticationController {
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
         str += formatter.format(date);
-        String[] code = billcode.trim().split("-");
-        int num = Integer.parseInt(code[1]) + 1;
-        int div = num;
-        while (div > 0) {
-            div /= 10;
-            count++;    // đếm số chữ số của num
-        }
-        if (code[0].equals(str)) {
-            re += str + "-";
-            for (int i = 0; i < 8 - count; i++) {
-                re += "0";
+        if (billcode.trim().length()>1) {
+            String[] code = billcode.trim().split("-");
+            int num = Integer.parseInt(code[1]) + 1;
+            int div = num;
+            while (div > 0) {
+                div /= 10;
+                count++;    // đếm số chữ số của num
             }
-            re += num;
-        } else {
+            if (code[0].equals(str)) {
+                re += str + "-";
+                for (int i = 0; i < 8 - count; i++) {
+                    re += "0";
+                }
+                re += num;
+            } else {
+                re += str + "-00000001";
+            }
+        }else{
             re += str + "-00000001";
         }
         return re;

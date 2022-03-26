@@ -41,7 +41,7 @@ public class FilterSettingAccount implements Filter {
             chain.doFilter(request, response);
         } else {
             
-            request.getRequestDispatcher("view/Staff403.jsp").forward(request, response);
+            request.getRequestDispatcher("../view/Staff403.jsp").forward(request, response);
         }
     }
 

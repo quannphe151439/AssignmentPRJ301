@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.sell;
+package controller.Import;
 
 import controller.login.BaseAuthenticationController;
+import dal.ImportDBContext;
 import dal.SellDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,14 +17,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Account;
 import model.AccountStaff;
-import model.Bill;
-import model.BillDetail;
+import model.Import;
+import model.ImportDebt;
+import model.ImportDetail;
 
 /**
  *
  * @author Quan
  */
-public class EditBill extends BaseAuthenticationController {
+public class ImportDetailController extends BaseAuthenticationController {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,51 +40,26 @@ public class EditBill extends BaseAuthenticationController {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        String[] product = request.getParameterValues("product");
-        String[] describe = request.getParameterValues("describe");
-        String[] unitprice = request.getParameterValues("unitprice");
-        String[] quantity = request.getParameterValues("quantity");
-        String[] price = request.getParameterValues("price");
-        String raw_total = request.getParameter("total");
-        String name = request.getParameter("name").trim(); //
-        String address = request.getParameter("address").trim();//
-        String billcode = request.getParameter("billcode").trim();//
-        String phone = request.getParameter("phone").trim();
-        String paytype = request.getParameter("paytype").trim();
-        String raw_payment = request.getParameter("payment");
-        String raw_debt = request.getParameter("debt");
-        int debt = Integer.parseInt(raw_debt);
-        int payment = Integer.parseInt(raw_payment);
-        int total = Integer.parseInt(raw_total);
-
+        String raw_iid=request.getParameter("iid");
+        int iid=Integer.parseInt(raw_iid);
         Account acc = (Account) request.getSession().getAttribute("account");
         AccountStaff accStaff = (AccountStaff) request.getSession().getAttribute("accountStaff");
-        Account bid = null;
+        Account bid = null; //code lấy bid
         if (acc == null) {
             bid = accStaff.getBid();
         } else {
             bid = acc;
         }
-        SellDBContext db = new SellDBContext();
-        SellDBContext dbnew = new SellDBContext();
-        SellDBContext dbnum = new SellDBContext();
-        Bill b = new Bill(bid, billcode, name, phone, address, payment, paytype, debt, total);
-        ArrayList<BillDetail> list = new ArrayList<>();
-        ArrayList<Integer> nums = dbnum.getNum(bid.getBid().trim(),billcode);
-        for (int i = 0; i < product.length; i++) {
-            BillDetail d = new BillDetail();
-            d.setBid(bid);
-            d.setBillcode(b);
-            d.setProduct(product[i]);
-            d.setDescribe(describe[i]);
-            d.setQuantity(Integer.parseInt(quantity[i]));
-            d.setUnitprice(Integer.parseInt(unitprice[i]));
-            d.setPrice(Integer.parseInt(price[i]));
-            d.setNum(nums.get(i));
-            list.add(d);
-        }
-        db.updateBill(b, list, billcode, bid.getBid().trim());
-        response.sendRedirect("bills");
+        ImportDBContext db = new ImportDBContext();
+        
+        ArrayList<ImportDetail> details = db.getImportDetail(iid);
+        Import b= db.getImport(iid);
+        ImportDebt bd= db.getImportDebt(iid);
+        request.setAttribute("details", details);
+        request.setAttribute("importdebt", bd);
+        request.setAttribute("import", b);
+        
+        request.getRequestDispatcher("/view/ImportDetail.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

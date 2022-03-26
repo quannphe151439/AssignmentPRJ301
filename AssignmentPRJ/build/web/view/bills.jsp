@@ -47,9 +47,9 @@
                                     <div class="select-container">
 
                                         <select name="filter" class="custom-select">
-                                            <option value="0">Lọc theo</option>
-                                            <option value="1">Chưa thanh toán</option>
-                                            <option value="2">Trong tháng này</option>
+                                            <option value="0" <c:if test="${requestScope.filter==0}">selected</c:if>>Lọc theo</option>
+                                            <option value="1" <c:if test="${requestScope.filter==1}">selected</c:if>>Chưa thanh toán</option>
+                                            <option value="2" <c:if test="${requestScope.filter==2}">selected</c:if>>Trong tháng này</option>
 
                                         </select>
 

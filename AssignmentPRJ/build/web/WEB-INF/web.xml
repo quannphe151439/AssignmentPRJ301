@@ -112,6 +112,26 @@
         <servlet-name>LogOut_AccUpdate</servlet-name>
         <servlet-class>controller.login.LogOut_AccUpdate</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>InvoiceImport</servlet-name>
+        <servlet-class>controller.Import.InvoiceImport</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ImportDetail</servlet-name>
+        <servlet-class>controller.Import.ImportDetailController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SetDebtImport</servlet-name>
+        <servlet-class>controller.Import.SetDebtImport</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>editImport</servlet-name>
+        <servlet-class>controller.Import.editImport</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteImport</servlet-name>
+        <servlet-class>controller.Import.DeleteImport</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AuthenticationController</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -191,6 +211,26 @@
     <servlet-mapping>
         <servlet-name>LogOut_AccUpdate</servlet-name>
         <url-pattern>/logoutacc</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InvoiceImport</servlet-name>
+        <url-pattern>/invoiceimport</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ImportDetail</servlet-name>
+        <url-pattern>/importdetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SetDebtImport</servlet-name>
+        <url-pattern>/importdebt</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>editImport</servlet-name>
+        <url-pattern>/editimport</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteImport</servlet-name>
+        <url-pattern>/deleteimport</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

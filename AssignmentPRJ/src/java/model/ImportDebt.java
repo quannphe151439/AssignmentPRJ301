@@ -9,17 +9,17 @@ package model;
  *
  * @author Quan
  */
-public class BillDebt {
-    private Bill idbill;
+public class ImportDebt {
+    private Import iid;
     private boolean status;
     private String time;
 
-    public Bill getIdbill() {
-        return idbill;
+    public Import getIid() {
+        return iid;
     }
 
-    public void setIdbill(Bill idbill) {
-        this.idbill = idbill;
+    public void setIid(Import iid) {
+        this.iid = iid;
     }
 
     public boolean isStatus() {
@@ -29,8 +29,6 @@ public class BillDebt {
     public void setStatus(boolean status) {
         this.status = status;
     }
-
-
 
     public String getTime() {
         return time;

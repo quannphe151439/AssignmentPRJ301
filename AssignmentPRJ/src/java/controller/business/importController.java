@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.Account;
 import model.AccountStaff;
 import model.Import;
+import model.ImportDebt;
 import model.ImportDetail;
 import model.Warehouse;
 
@@ -89,9 +90,13 @@ public class importController extends BaseAuthenticationController {
             bid = acc;
         }
         ImportDBContext db = new ImportDBContext();
+        Boolean status=debt>0?true:false; 
         WarehouseDBContext productdb = new WarehouseDBContext();
         int iid = db.getIid();
         Import m = new Import(iid, bid, iname, iphone, iaddress, iconform, total, debt, payment);
+        ImportDebt d= new ImportDebt();
+        d.setIid(m);
+        d.setStatus(status);
         ArrayList<ImportDetail> list = new ArrayList<>();
         for (int i = 0; i < product.length; i++) {
             ImportDetail im = new ImportDetail();
@@ -117,7 +122,7 @@ public class importController extends BaseAuthenticationController {
             }
 
         }
-        db.insertImport(m, list);
+        db.insertImport(m, list,d);
         String re = "Nhập kho thành công!";
         request.setAttribute("mess", re);
         request.getRequestDispatcher("/view/import.jsp").forward(request, response);
